@@ -1,12 +1,17 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import LandingPage from './pages/Landing/landing'
 
 const AuthRoutes = () => {
   return <></>
 }
 
 const UnAuthedRoutes = () => {
-  return <></>
+  return (
+    <>
+      <Route path="/" component={LandingPage} />
+    </>
+  )
 }
 
 const AppRoutes = () => {

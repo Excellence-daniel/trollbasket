@@ -1,0 +1,56 @@
+.header-component {
+  .row {
+    align-items: baseline;
+  }
+  .logo-bunny {
+    width: 55%;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 4rem;
+
+    li {
+      font-weight: 800;
+      color: #054256;
+      font-size: 17px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .sign-up-button {
+        padding: 9px 15px;
+        border-radius: 5px;
+        border: 3px solid #054256;
+        background: transparent;
+        color: #054256;
+        margin-top: -2rem;
+
+        &:hover {
+          color: white;
+          border-color: white;
+          transition: all 0.5s;
+        }
+      }
+    }
+  }
+
+  .app-download-background {
+    margin-left: 8rem;
+    background: #36728647;
+    padding: 15px 22px;
+    color: #054256;
+    width: 7rem;
+    border-radius: 9px;
+    display: flex;
+    justify-content: space-between;
+    .app-icon {
+      margin-right: 1rem;
+      font-size: 25px;
+    }
+  }
+}

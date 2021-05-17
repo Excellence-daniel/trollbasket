@@ -1,11 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import AppRoutes from './router'
+import { SnackbarProvider } from 'notistack'
+import Slide from '@material-ui/core/Slide'
+
+const notistackRef = React.createRef()
+// const onClickDismiss = (key) => () => {
+//   notistackRef.current.closeSnackbar(key)
+// }
 
 ReactDOM.render(
-  <React.StrictMode>
+  <SnackbarProvider
+    preventDuplicate
+    ref={notistackRef}
+    maxSnack={3}
+    anchorOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    TransitionComponent={Slide}
+  >
     <AppRoutes />
-  </React.StrictMode>,
+  </SnackbarProvider>,
   document.getElementById('root'),
 )
 

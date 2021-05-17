@@ -1,5 +1,5 @@
 import React from 'react'
-import Bunny from '../../assets/svgs/easter-bunny.svg'
+// import Bunny from '../../assets/svgs/easter-bunny.svg'
 import './index.scss'
 import AppleIcon from '@material-ui/icons/Apple'
 import AndroidIcon from '@material-ui/icons/Android'

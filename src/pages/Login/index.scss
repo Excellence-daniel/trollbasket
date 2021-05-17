@@ -1,0 +1,71 @@
+.login-page-00 {
+  .pic-col {
+    background-image: url("../../assets/imgs/side-login-img.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .logo-text {
+    padding: 4rem 7rem;
+  }
+
+  .login-form {
+    padding: 5rem 7rem;
+
+    h4 {
+      color: #064356;
+      font-weight: 800;
+      margin-bottom: 3rem;
+      font-size: 2rem;
+    }
+
+    h5 {
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: #074456c4;
+    }
+
+    .small {
+      font-size: 14px;
+      font-weight: 200;
+      color: #a9a9a9;
+    }
+
+    .form {
+      margin-top: 2rem;
+      width: 85%;
+
+      .form-control {
+        margin-top: 5px;
+        height: 3rem;
+      }
+      .reset-password {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .login-button {
+        width: 100%;
+        margin-top: 1rem;
+        border: none;
+        background: #064356;
+        color: white;
+        border-radius: 6px;
+        padding: 14px;
+      }
+
+      .dont-have-an-account {
+        font-weight: 600;
+        color: #064356;
+        padding: 0;
+        margin-top: 1rem;
+        font-size: 18px;
+      }
+    }
+  }
+}

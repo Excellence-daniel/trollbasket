@@ -1,15 +1,15 @@
 import React from 'react'
-import { Header } from '../../components/header/header'
 import './index.scss'
 import { Link } from 'react-router-dom'
 
 export const Register = () => {
   return (
     <div className="register-00">
-      <Header />
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-6 align-self-center">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-5 pic-col"></div>
+          <div className="col-7">
+            <h3 className="logo-text"> Troll Basket </h3>
             <div className="register-form">
               <h4>Register</h4>
               <p className="manage-text">Manage all your order efficiently.</p>

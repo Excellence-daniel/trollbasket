@@ -43,6 +43,19 @@
         margin-top: 5px;
         height: 3rem;
       }
+
+      .input-group-text {
+        margin-top: 5px;
+        height: 3rem;
+      }
+
+      .password-eye {
+        font-size: 16px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
 
     .form-check {

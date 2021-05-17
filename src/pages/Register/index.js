@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './index.scss'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
-const { REACT_APP_SERVER_URL } = process.env
+import { Link, Redirect } from 'react-router-dom'
+import { validateObjectBody } from '../../utils'
+import VisibilityIcon from '@material-ui/icons/Visibility'
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
+import { connect } from 'react-redux'
+import selectors from './redux/selectors'
+import { createUser } from './redux/action'
 
-export const Register = (props) => {
+const Register = (props) => {
   const [user, setuser] = useState({
     firstname: '',
     lastname: '',
@@ -13,6 +17,22 @@ export const Register = (props) => {
     phonenumber: '',
     confirmpassword: '',
   })
+  const [hasUser, sethasUser] = useState(false)
+  const [viewpassword, setviewpassword] = useState(false)
+  const [viewcpassword, setviewcpassword] = useState(false)
+  const [agreeToTerms, setagreeToTerms] = useState(false)
+  const [receivenotification, setreceivenotifications] = useState(false)
+
+  useEffect(() => {
+    props.errorMessage &&
+      props.enqueueSnackbar(props.errorMessage, { variant: 'error' })
+    // eslint-disable-next-line
+  }, [props.errorMessage && props.loading])
+
+  useEffect(() => {
+    Object.keys(props.user).length && sethasUser(true)
+    // eslint-disable-next-line
+  }, [props.user && props.loading])
 
   const handleChange = (e) => {
     const {
@@ -21,30 +41,40 @@ export const Register = (props) => {
     setuser({ ...user, [name]: value })
   }
 
-  const validateBody = (user) => {
-    for (const key in user) {
-      if (!user[key]) {
-        props.enqueueSnackbar(`Please fill in the value for ${key}`, {
+  const validate = () => {
+    const valid = validateObjectBody(user, props)
+    if (valid) {
+      if (user.password !== user.confirmpassword) {
+        props.enqueueSnackbar(
+          'Password are different. Please confirm the correct password',
+          { variant: 'warning' },
+        )
+        return false
+      }
+
+      if (!agreeToTerms) {
+        props.enqueueSnackbar('You are yet to agree to terms and conditions', {
           variant: 'warning',
         })
         return false
       }
+
+      return true
     }
-    return true
   }
 
   const register = async () => {
-    const valid = validateBody(user)
+    const valid = validate()
     if (valid) {
-      try {
-        const url = `${REACT_APP_SERVER_URL}/users/create`
-        const response = await axios.post(url, { name: 'Methh' })
-        console.log({ response })
-      } catch (error) {
-        console.log({ error })
-      }
+      props.createUser({
+        ...user,
+        agreeToTerms,
+        receivenotification,
+      })
     }
   }
+
+  if (hasUser) return <Redirect to="/shop" />
 
   return (
     <div className="register-00">
@@ -60,13 +90,14 @@ export const Register = (props) => {
                 Lets get you all set up so that you can login and begin to shop.
               </span>
 
-              <div className="form">
+              <div className="form g-3 needs-validation">
                 <div className="row">
                   <p className="col-6">
                     <label>First Name</label>
                     <input
                       className="form-control"
                       name="firstname"
+                      value={user.firstname}
                       onChange={handleChange}
                     />
                   </p>
@@ -100,19 +131,51 @@ export const Register = (props) => {
                 <div className="row">
                   <p className="col-6">
                     <label>Password</label>
-                    <input
-                      className="form-control"
-                      name="password"
-                      onChange={handleChange}
-                    />
+                    <div className="input-group mb-3">
+                      <input
+                        type={viewpassword ? 'text' : 'password'}
+                        className="form-control"
+                        name="password"
+                        onChange={handleChange}
+                      />
+                      <span className="input-group-text" id="basic-addon2">
+                        {viewpassword ? (
+                          <VisibilityOffIcon
+                            onClick={() => setviewpassword(false)}
+                            className="password-eye"
+                          />
+                        ) : (
+                          <VisibilityIcon
+                            onClick={() => setviewpassword(true)}
+                            className="password-eye"
+                          />
+                        )}
+                      </span>
+                    </div>
                   </p>
                   <p className="col-6">
                     <label>Confirm Password</label>
-                    <input
-                      className="form-control"
-                      name="confirmpassword"
-                      onChange={handleChange}
-                    />
+                    <div className="input-group mb-3">
+                      <input
+                        type={viewcpassword ? 'text' : 'password'}
+                        className="form-control"
+                        name="confirmpassword"
+                        onChange={handleChange}
+                      />
+                      <span className="input-group-text" id="basic-addon2">
+                        {viewcpassword ? (
+                          <VisibilityOffIcon
+                            onClick={() => setviewcpassword(false)}
+                            className="password-eye"
+                          />
+                        ) : (
+                          <VisibilityIcon
+                            onClick={() => setviewcpassword(true)}
+                            className="password-eye"
+                          />
+                        )}
+                      </span>
+                    </div>
                   </p>
                 </div>
                 <div className="row">
@@ -120,8 +183,9 @@ export const Register = (props) => {
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      value=""
+                      value={agreeToTerms}
                       id="flexCheckDefault"
+                      onClick={() => setagreeToTerms(!agreeToTerms)}
                     />
                     <label
                       className="form-check-label"
@@ -135,8 +199,11 @@ export const Register = (props) => {
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      value=""
+                      value={receivenotification}
                       id="flexCheckDefault"
+                      onClick={() =>
+                        setreceivenotifications(!receivenotification)
+                      }
                     />
                     <label
                       className="form-check-label"
@@ -146,8 +213,12 @@ export const Register = (props) => {
                       Troll Basket
                     </label>
                   </div>
-                  <button className="signup-button" onClick={() => register()}>
-                    Create Account
+                  <button
+                    className="signup-button"
+                    onClick={() => register()}
+                    disabled={props.loading}
+                  >
+                    {props.loading ? 'Loading...' : 'Create Account'}
                   </button>
                   <p className="have-an-account">
                     Already have an account? <Link to="/login">Log in</Link>
@@ -161,3 +232,9 @@ export const Register = (props) => {
     </div>
   )
 }
+
+const mapToDispatchProps = {
+  createUser,
+}
+
+export default connect(selectors, mapToDispatchProps)(Register)

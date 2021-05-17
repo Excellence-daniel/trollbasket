@@ -1,0 +1,57 @@
+.register-00 {
+  .register-form {
+    margin-top: 3rem;
+
+    a {
+      text-decoration: none;
+    }
+
+    h4 {
+      color: #064356;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .manage-text {
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: #074456c4;
+    }
+
+    .small {
+      font-size: 14px;
+      font-weight: 600;
+      color: #b3b3b3;
+    }
+
+    .form {
+      margin-top: 3rem;
+    }
+
+    .form-check {
+      margin-top: 1rem;
+    }
+
+    .form-check-label {
+      color: #847d7d;
+      font-weight: 100;
+    }
+
+    .signup-button {
+      width: 11rem;
+      margin-top: 1rem;
+      border: none;
+      background: #064356;
+      color: white;
+      border-radius: 6px;
+      padding: 14px;
+    }
+
+    .have-an-account {
+      font-weight: 600;
+      color: #064356;
+      padding: 0;
+      margin-top: 1rem;
+      font-size: 16px;
+    }
+  }
+}

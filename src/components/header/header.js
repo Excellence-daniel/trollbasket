@@ -3,14 +3,22 @@ import Bunny from '../../assets/svgs/easter-bunny.svg'
 import './index.scss'
 import AppleIcon from '@material-ui/icons/Apple'
 import AndroidIcon from '@material-ui/icons/Android'
+import { Link } from 'react-router-dom'
 
 export const Header = () => {
   return (
     <div className="header-component">
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col-3">
-            <img src={Bunny} className="img-fluid logo-bunny" alt="logo here" />
+            <Link to="/">
+              <h3 className="logo-text"> Troll Basket </h3>
+              {/* <img
+                src={Bunny}
+                className="img-fluid logo-bunny"
+                alt="logo here"
+              /> */}
+            </Link>
           </div>
           <div className="col-6">
             <ul>
@@ -19,7 +27,9 @@ export const Header = () => {
               <li>Services</li>
               <li>FAQ</li>
               <li>
-                <button className="sign-up-button">Sign Up/ Login</button>
+                <Link to="/register">
+                  <button className="sign-up-button">Sign Up/ Login</button>
+                </Link>
               </li>
             </ul>
           </div>

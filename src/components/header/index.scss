@@ -1,9 +1,14 @@
 .header-component {
+  padding: 0rem 4rem;
   .row {
     align-items: baseline;
   }
   .logo-bunny {
     width: 55%;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   ul {
@@ -31,8 +36,9 @@
         margin-top: -2rem;
 
         &:hover {
+          background: #054256;
           color: white;
-          border-color: white;
+          // border-color: white;
           transition: all 0.5s;
         }
       }

@@ -13,7 +13,7 @@ import ProductDetailView from './pages/Shop/productView'
 const AuthRoutes = (props) => {
   return localStorage.getItem('x-access-token') ? (
     <>
-      <Route path="/" render={() => <Shop {...props} />} exact />
+      <Route path="/" render={() => <Shop {...props} />} />
       <Route
         path="/category/:id"
         render={() => <CategoryView {...props} />}

@@ -8,6 +8,7 @@ export default {
       const config = {
         headers: {
           'x-access-token': localStorage.getItem('x-access-token'),
+          'Access-Control-Allow-Origin': '*',
         },
         params: query,
       }
@@ -36,7 +37,9 @@ export default {
 
   async postDataNoAuth(url, data) {
     try {
-      let response = await axios.post(`${REACT_APP_SERVER_URL}${url}`, data)
+      let response = await axios.post(`${REACT_APP_SERVER_URL}${url}`, data, {
+        headers: { 'Access-Control-Allow-Origin': '*' },
+      })
 
       return response.data
     } catch (error) {

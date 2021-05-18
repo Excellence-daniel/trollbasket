@@ -1,8 +1,14 @@
 .cart-view {
+  .cart-text {
+    position: sticky;
+    font-size: 2.3rem;
+    background: white;
+    box-shadow: -1px -1px 23px 4px #c7c7c7;
+    top: 0;
+  }
   h3 {
     padding: 2rem;
     font-size: 2.3rem;
-    padding-bottom: 4px;
   }
 
   .cart-item {
@@ -11,9 +17,9 @@
     padding: 25px;
 
     h5 {
-      width: 5rem;
+      width: 9rem;
       font-weight: 200;
-      font-size: 18px;
+      font-size: 17px;
     }
 
     .price {
@@ -45,9 +51,10 @@
     padding: 30px;
     padding-bottom: 15px;
     box-shadow: -1px -1px 23px 4px rgba(199, 199, 199, 70%);
-    position: absolute;
-    width: 100%;
+    position: fixed;
+    width: 33%;
     bottom: 0;
+    background: white;
 
     .total-amount {
       h6 {

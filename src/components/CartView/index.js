@@ -5,7 +5,7 @@ import RemoveIcon from '@material-ui/icons/Remove'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 export const CartView = (props) => {
-  console.log('cart', props)
+  console.log('cart -----', props)
 
   const totalAmount = (items) => {
     let total = 0
@@ -15,32 +15,38 @@ export const CartView = (props) => {
 
   return (
     <div className="cart-view">
-      <h3>Cart</h3>
-      <hr />
-      {props.cartItems.map((cart) => (
-        <div className="cart-item">
-          <h5>{cart.name}</h5>
-          <p className="increase-pump">
-            <span onClick={() => props.reduce(cart)}>
-              <RemoveIcon />
-            </span>
-            <span> {cart.quantity}</span>
-            <span>
-              <DeleteIcon />
-            </span>
-          </p>
-          <p className="price">
-            ${numeral(cart.price * cart.quantity).format('0,0')}
-          </p>
-        </div>
-      ))}
+      <div className="cart-text">
+        <h3>
+          Cart <span class="badge bg-secondary">{props.cart.length}</span>
+        </h3>
+      </div>
+      <div className="cart-list">
+        {props.cart.map((product, id) => (
+          <div className="cart-item" key={id}>
+            <h5>{product.name}</h5>
+            <p className="increase-pump">
+              <span onClick={() => props.reduce(product)}>
+                <RemoveIcon />
+              </span>
+              <span>{product.quantity}</span>
+              <span onClick={() => props.delete(product)}>
+                <DeleteIcon />
+              </span>
+            </p>
+            <p className="price">
+              ${numeral(product.price * product.quantity).format('0,0')}
+            </p>
+          </div>
+        ))}
+      </div>
+
       <div className="bottom-tab">
         <div className="total-amount">
           <h6>Total</h6>
-          <p>${numeral(totalAmount(props.cartItems)).format('0,0')}</p>
+          <p>${numeral(totalAmount(props.cart)).format('0,0')}</p>
         </div>
         <div className="checkout-button">
-          <button disabled={!totalAmount(props.cartItems)}> Checkout </button>
+          <button disabled={!totalAmount(props.cart)}> Checkout </button>
         </div>
       </div>
     </div>

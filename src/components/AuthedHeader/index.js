@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './index.scss'
 import SearchIcon from '@material-ui/icons/Search'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
@@ -12,10 +12,18 @@ import {
   reduceProductInCart,
   deleteProductInCart,
 } from '../../pages/Shop/redux/action'
+import { Link } from 'react-router-dom'
 
 const AuthHeader = (props) => {
   console.log('here', props)
   const [open, setopen] = useState(false)
+  const [cartitems, setcartitems] = useState([])
+
+  useEffect(() => {
+    console.log('runnnnnnnn')
+    setcartitems(props.cart)
+  }, [props.cart])
+
   return (
     <div className="authhead--00">
       <AppBar className="app-bar">
@@ -23,7 +31,9 @@ const AuthHeader = (props) => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-3">
-                <h3 className="logo-text">Troll Basket</h3>
+                <h3 className="logo-text">
+                  <Link to="/shop">Troll Basket</Link>
+                </h3>
               </div>
               <div className="col-6">
                 <div class="input-group mb-3">
@@ -62,7 +72,9 @@ const AuthHeader = (props) => {
         className="cart-drawer"
       >
         <CartView
-          cartItems={props.cart}
+          // {...props}
+          cart={cartitems}
+          // cartItems={props.cart}
           reduce={props.reduceProductInCart}
           delete={props.deleteProductInCart}
         />

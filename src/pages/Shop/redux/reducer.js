@@ -8,12 +8,13 @@ import {
 
 const initialState = {
   cart: JSON.parse(localStorage.getItem('cart')) || [],
+  // cart: [],
   loading: false,
   errorMessage: '',
 }
 
 const addToLS = (cart) => {
-  localStorage.setItem('cart', JSON.stringify(cart))
+  return localStorage.setItem('cart', JSON.stringify(cart))
 }
 
 export const shopReducer = (state = initialState, action) => {
@@ -34,20 +35,35 @@ export const shopReducer = (state = initialState, action) => {
       addToLS(cart)
       return { ...state, cart }
     case REDUCE_PRODUCT_IN_CART_SUCCESS: {
+      // const data = state.partnerLocations.map(location => {
+      //   if (location._id === action.payload._id) location = action.payload;
+      //   return location;
+      // });
+      // update.partnerLocations = data;
       const index = state.cart.findIndex((x) => x.id === action.payload.id)
-      let cart = state.cart
-      if (index > -1 && cart[index].quantity >= 1) {
-        cart[index].quantity = Number(cart[index].quantity) - 1
+      // let cart = state.cart
+      if (index > -1 && state.cart[index].quantity >= 1) {
+        const newcount = Number(state.cart[index].quantity) - 1
+        if (newcount > 0) {
+          state.cart[index].quantity = newcount
+        } else {
+          state.cart.splice(index, 1)
+        }
       } else {
-        cart = cart.splice(index, 0)
-        console.log('keeekek', { cart })
+        state.cart.splice(index, 1)
       }
-      console.log({ cart })
-      addToLS(cart)
-      return { ...state, cart }
+      console.log('after allll', state.cart)
+      addToLS(state.cart)
+      return { ...state, cart: state.cart }
     }
-
+    case DELETE_PRODUCT_IN_CART_SUCCESS: {
+      const index = state.cart.findIndex((x) => x.id === action.payload.id)
+      state.cart.splice(index, 1)
+      console.log('remaining', state.cart)
+      addToLS(state.cart)
+      return { ...state, cart: state.cart }
+    }
     default:
-      return state
+      return { ...state }
   }
 }

@@ -7,10 +7,24 @@ import Login from './pages/Login'
 import { store } from './store'
 import { Provider } from 'react-redux'
 import Shop from './pages/Shop'
+import CategoryView from './pages/Shop/categoryView'
+import ProductDetailView from './pages/Shop/productView'
 
 const AuthRoutes = (props) => {
   return localStorage.getItem('x-access-token') ? (
-    <Route path="/shop" render={() => <Shop {...props} />} exact />
+    <>
+      <Route path="/shop" render={() => <Shop {...props} />} exact />
+      <Route
+        path="/shop/category/:id"
+        render={() => <CategoryView {...props} />}
+        exact
+      />
+      <Route
+        path="/shop/product/:id"
+        render={() => <ProductDetailView {...props} />}
+        exact
+      />
+    </>
   ) : (
     <Redirect to="/login" />
   )

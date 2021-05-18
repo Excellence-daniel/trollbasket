@@ -1,6 +1,12 @@
 import axios from 'axios'
-// const { REACT_APP_SERVER_URL } = process.env
-const REACT_APP_SERVER_URL = 'https://trollbasket-server.herokuapp.com'
+const { REACT_APP_SERVER_URL } = process.env
+const headers = {
+  'Access-Control-Allow-Headers':
+    'x-access-token,X-Requested-With,Content-Type,Authorization,cache-control',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
+  'Access-Control-Allow-Credentials': true,
+}
 
 export default {
   async getData(url, query = 0) {
@@ -8,7 +14,7 @@ export default {
       const config = {
         headers: {
           'x-access-token': localStorage.getItem('x-access-token'),
-          'Access-Control-Allow-Origin': '*',
+          ...headers,
         },
         params: query,
       }
@@ -38,7 +44,7 @@ export default {
   async postDataNoAuth(url, data) {
     try {
       let response = await axios.post(`${REACT_APP_SERVER_URL}${url}`, data, {
-        headers: { 'Access-Control-Allow-Origin': '*' },
+        headers,
       })
 
       return response.data

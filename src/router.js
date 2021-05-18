@@ -13,14 +13,14 @@ import ProductDetailView from './pages/Shop/productView'
 const AuthRoutes = (props) => {
   return localStorage.getItem('x-access-token') ? (
     <>
-      <Route path="/" render={() => <Shop {...props} />} />
+      <Route path="/shop" render={() => <Shop {...props} />} exact />
       <Route
-        path="/category/:id"
+        path="/shop/category/:id"
         render={() => <CategoryView {...props} />}
         exact
       />
       <Route
-        path="/product/:id"
+        path="/shop/product/:id"
         render={() => <ProductDetailView {...props} />}
         exact
       />
@@ -33,7 +33,7 @@ const AuthRoutes = (props) => {
 const UnAuthedRoutes = (props) => {
   return (
     <>
-      <Route path="/" render={LandingPage} exact />
+      <Route path="/" component={LandingPage} exact />
       <Route path="/register" render={() => <Register {...props} />} exact />
       <Route path="/login" render={() => <Login {...props} />} exact />
     </>

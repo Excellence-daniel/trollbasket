@@ -24,6 +24,42 @@
     }
   }
 
+  .result-board {
+    // color: #094556;
+
+    position: absolute;
+    background: white;
+    width: 44%;
+    border-radius: 0 0 8px 8px;
+    color: black;
+    box-shadow: 1px 1px 5px 2px #eae4e4;
+
+    .result {
+      padding: 17px;
+      margin-bottom: 0;
+      border-bottom: 1px solid #f5efef;
+
+      img {
+        width: 2.5rem;
+      }
+
+      span {
+        padding: 1rem 2rem;
+      }
+      &:last-child {
+        border: none;
+      }
+
+      &:hover {
+        background: #0744565e;
+        cursor: pointer;
+        color: white;
+        transition: all 0.2s;
+        font-weight: 500;
+      }
+    }
+  }
+
   .cart-button {
     float: right;
     border: none;

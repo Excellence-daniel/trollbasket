@@ -17,7 +17,8 @@ export const CartView = (props) => {
     <div className="cart-view">
       <div className="cart-text">
         <h3>
-          Cart <span class="badge bg-secondary">{props.cart.length}</span>
+          Cart{' '}
+          <span class="badge bg-secondary cart-count">{props.cart.length}</span>
         </h3>
       </div>
       <div className="cart-list">

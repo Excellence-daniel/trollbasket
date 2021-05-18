@@ -24,6 +24,12 @@ const CategoryView = (props) => {
 
   const fetchCategory = (id) => {
     const category = categories.find((x) => x.id === id)
+    if (!category) {
+      props.enqueueSnackbar('Invalid Category ID', {
+        variant: 'error',
+      })
+      window.location.href = '/shop'
+    }
     setcategory(category)
   }
 

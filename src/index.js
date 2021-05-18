@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom'
 import AppRoutes from './router'
 import { SnackbarProvider } from 'notistack'
 import Slide from '@material-ui/core/Slide'
+import Button from '@material-ui/core/Button'
 
 const notistackRef = React.createRef()
-// const onClickDismiss = (key) => () => {
-//   notistackRef.current.closeSnackbar(key)
-// }
+const onClickDismiss = (key) => () => {
+  notistackRef.current.closeSnackbar(key)
+}
 
 ReactDOM.render(
   <SnackbarProvider
@@ -19,6 +20,7 @@ ReactDOM.render(
       horizontal: 'right',
     }}
     TransitionComponent={Slide}
+    action={() => <Button onClick={onClickDismiss()}>x</Button>}
   >
     <AppRoutes />
   </SnackbarProvider>,

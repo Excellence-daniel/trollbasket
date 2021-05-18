@@ -1,0 +1,48 @@
+.shop-001 {
+  .category-group {
+    .category-name {
+    }
+
+    .category-list {
+      display: flex;
+
+      .product {
+        margin: 10px;
+        background: #07445626;
+        height: 18rem;
+        text-align: center;
+        padding: 14px;
+
+        .add-icon {
+          width: fit-content;
+          background: #545454;
+          padding: 3px 3.5px;
+          border-radius: 50%;
+          color: white;
+          position: relative;
+          left: 201px;
+          top: -24px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .product-img {
+          width: 45%;
+        }
+
+        .product-name {
+          margin-top: 1rem;
+          font-size: 21px;
+          font-weight: 600;
+        }
+
+        .product-price {
+          font-size: 17px;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+}

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import selectors from './redux/selector'
 import { saveProductInCart } from './redux/action'
-import Popover from '@material-ui/core/Popover'
 import { products } from '../../utils/constants/products'
 import { categories } from '../../utils/constants/categories'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
@@ -16,12 +15,16 @@ const Shop = (props) => {
   const [sortedData, setgroupings] = useState([])
 
   useEffect(() => {
-    !sortedData.length && fetchData()
-  }, [])
+    // !sortedData.length && fetchData()
+    fetchData()
+  }, [props.filtercountry])
 
   const fetchData = () => {
+    const allcategories =
+      props.filtercountry !== 'All' ? props.filteredCategories : categories
+    console.log({ allcategories })
     const groupings = []
-    categories.map((category) => {
+    allcategories.map((category) => {
       let groupedCategory = {
         categoryid: category.id,
         categoryname: category.name,
@@ -47,7 +50,7 @@ const Shop = (props) => {
 
   return (
     <div className="shop-001">
-      <AuthHeader />
+      <AuthHeader onShop={true} />
       <div className="container-fluid">
         <div className="row">
           <div className="col-12 category-group">

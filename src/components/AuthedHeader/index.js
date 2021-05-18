@@ -12,9 +12,12 @@ import PackageImg from '../../assets/imgs/package.png'
 import {
   reduceProductInCart,
   deleteProductInCart,
+  setCountryFilter,
 } from '../../pages/Shop/redux/action'
 import { Link } from 'react-router-dom'
 import { products } from '../../utils/constants/products'
+import FilterListIcon from '@material-ui/icons/FilterList'
+import Popover from '@material-ui/core/Popover'
 
 const AuthHeader = (props) => {
   console.log('here', props)
@@ -22,16 +25,23 @@ const AuthHeader = (props) => {
   const [cartitems, setcartitems] = useState([])
   const [searchtext, setsearchtext] = useState('')
   const [searchresult, setresult] = useState([])
+  const [anchorEl, setAnchorEl] = React.useState(null)
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget)
+  }
 
   useEffect(() => {
-    console.log('runnnnnnnn')
     setcartitems(props.cart)
   }, [props.cart])
 
   const handleChange = ({ target }) => {
-    console.log('value', target.value)
     setsearchtext(target.value)
     search(target.value)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
   }
 
   const search = (value) => {
@@ -42,8 +52,14 @@ const AuthHeader = (props) => {
       if (x > -1) res.push(product)
     })
     setresult(res)
-    console.log({ res })
   }
+
+  const setcountry = (country) => {
+    props.setCountryFilter(country)
+  }
+
+  const openPop = Boolean(anchorEl)
+  const id = openPop ? 'simple-popper' : undefined
 
   return (
     <div className="authhead--00">
@@ -56,7 +72,7 @@ const AuthHeader = (props) => {
                   <Link to="/shop">Troll Basket</Link>
                 </h3>
               </div>
-              <div className="col-6">
+              <div className="col-5">
                 <div className="input-group mb-3">
                   <input
                     type="text"
@@ -64,12 +80,12 @@ const AuthHeader = (props) => {
                     placeholder="Search Product..."
                     onChange={handleChange}
                   />
-                  <buttton
+                  <button
                     className="input-group-text"
                     onClick={() => alert('heyy')}
                   >
                     <SearchIcon />
-                  </buttton>
+                  </button>
                 </div>
                 {searchtext && (
                   <div className="result-board">
@@ -89,6 +105,46 @@ const AuthHeader = (props) => {
                       <p className="result">No Result</p>
                     )}
                   </div>
+                )}
+              </div>
+              <div className="col-1">
+                {props.onShop && (
+                  <span
+                    className="filter-icon"
+                    aria-describedby={id}
+                    type="button"
+                    onClick={handleClick}
+                  >
+                    <FilterListIcon />
+                    {props.filtercountry !== 'All' && (
+                      <p className="showing-data-text">
+                        Showing {props.filtercountry}'s Data
+                      </p>
+                    )}
+
+                    <Popover
+                      id={id}
+                      open={openPop}
+                      anchorEl={anchorEl}
+                      onClose={handleClose}
+                      anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                      }}
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                      }}
+                    >
+                      <div className="countries-list">
+                        <p onClick={() => setcountry('Nigeria')}>Nigeria</p>
+                        <p onClick={() => setcountry('Ghana')}>Ghana</p>
+                        <p onClick={() => setcountry('South Africa')}>
+                          South Africa
+                        </p>
+                      </div>
+                    </Popover>
+                  </span>
                 )}
               </div>
               <div className="col-3">
@@ -124,6 +180,10 @@ const AuthHeader = (props) => {
   )
 }
 
-const mapToDispatchProps = { reduceProductInCart, deleteProductInCart }
+const mapToDispatchProps = {
+  reduceProductInCart,
+  deleteProductInCart,
+  setCountryFilter,
+}
 
 export default connect(selectors, mapToDispatchProps)(AuthHeader)

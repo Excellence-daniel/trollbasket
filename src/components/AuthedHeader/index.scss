@@ -60,6 +60,29 @@
     }
   }
 
+  .filter-icon {
+    position: relative;
+    left: 199px;
+    top: 10px;
+
+    svg {
+      fill: #074456;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .showing-data-text {
+    color: #094556;
+    position: relative;
+    left: -54px;
+    font-size: 11px;
+    top: 5px;
+    font-weight: 700;
+  }
+
   .cart-button {
     float: right;
     border: none;
@@ -88,5 +111,20 @@
 .cart-drawer {
   .MuiDrawer-paperAnchorRight {
     width: 38rem;
+  }
+}
+
+.countries-list {
+  padding: 13px;
+  width: 11rem;
+  text-align: center;
+
+  p {
+    &:hover {
+      cursor: pointer;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }

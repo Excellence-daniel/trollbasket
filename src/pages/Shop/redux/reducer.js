@@ -4,12 +4,16 @@ import {
   SAVE_PRODUCT_IN_CART_SUCCESS,
   REDUCE_PRODUCT_IN_CART_SUCCESS,
   DELETE_PRODUCT_IN_CART_SUCCESS,
+  SET_COUNTRY_FILTER_SUCCESS,
 } from './action'
+import { products } from '../../../utils/constants/products'
+import { categories } from '../../../utils/constants/categories'
 
 const initialState = {
   cart: JSON.parse(localStorage.getItem('cart')) || [],
-  // cart: [],
   loading: false,
+  filteredCategories: [],
+  filtercountry: 'All',
   errorMessage: '',
 }
 
@@ -62,6 +66,16 @@ export const shopReducer = (state = initialState, action) => {
       console.log('remaining', state.cart)
       addToLS(state.cart)
       return { ...state, cart: state.cart }
+    }
+    case SET_COUNTRY_FILTER_SUCCESS: {
+      const country = action.payload
+      const categorys = []
+      categories.map((category) => {
+        if (category.availableIn.includes(country)) {
+          categorys.push(category)
+        }
+      })
+      return { ...state, filteredCategories: categorys, filtercountry: country }
     }
     default:
       return { ...state }

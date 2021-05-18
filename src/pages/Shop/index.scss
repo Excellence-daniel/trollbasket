@@ -34,6 +34,7 @@
     .category-list {
       .product-list {
         padding: 0;
+        flex-wrap: nowrap;
 
         .product {
           width: 16%;
@@ -120,6 +121,17 @@
 
       svg {
         margin-left: 12px;
+      }
+    }
+  }
+  .similar-products {
+    .product-list {
+      padding: 0;
+      flex-wrap: nowrap;
+      justify-content: initial;
+
+      .product {
+        width: 100%;
       }
     }
   }

@@ -8,6 +8,7 @@ import { categories } from '../../utils/constants/categories'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import { ProductsView } from '../../components/ProductsView'
 import { Link } from 'react-router-dom'
+import { BackdropComponent } from '../../components/Backdrop'
 
 const CategoryView = (props) => {
   const [categoryproducts, setproducts] = useState([])
@@ -20,6 +21,7 @@ const CategoryView = (props) => {
     const id = splits[3]
     fetchCategory(id)
     fetchProduct(id)
+    // eslint-disable-next-line
   }, [])
 
   const fetchCategory = (id) => {
@@ -35,7 +37,7 @@ const CategoryView = (props) => {
 
   const fetchProduct = (id) => {
     const sortedProducts = []
-    products.map((product) => {
+    products.forEach((product) => {
       if (product.categoryIds.includes(id)) {
         sortedProducts.push(product)
       }
@@ -54,22 +56,27 @@ const CategoryView = (props) => {
     <>
       <AuthedHeader />
       <div className="shop-category-view">
-        <div className="heading">
-          <h3 className="category-name">{selectedcategory.name}</h3>
-          <p>
-            <Link to="/shop">
-              <ArrowBackIcon /> See All Products
-            </Link>
-          </p>
-        </div>
-
-        <div className="product-list">
-          <ProductsView
-            products={categoryproducts}
-            addToCart={addToCart}
-            {...props}
-          />
-        </div>
+        {props.pageLoading ? (
+          <BackdropComponent open={true} />
+        ) : (
+          <>
+            <div className="heading">
+              <h3 className="category-name">{selectedcategory.name}</h3>
+              <p>
+                <Link to="/shop">
+                  <ArrowBackIcon /> See All Products
+                </Link>
+              </p>
+            </div>
+            <div className="product-list">
+              <ProductsView
+                products={categoryproducts}
+                addToCart={addToCart}
+                {...props}
+              />
+            </div>
+          </>
+        )}
       </div>
     </>
   )

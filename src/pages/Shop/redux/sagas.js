@@ -8,6 +8,8 @@ import {
   DELETE_PRODUCT_IN_CART,
   SET_COUNTRY_FILTER_SUCCESS,
   SET_COUNTRY_FILTER,
+  PAGE_LOADED_SUCCESS,
+  PAGE_LOADING,
 } from './action'
 
 function* saveProductInCart(action) {
@@ -25,8 +27,11 @@ function* deleteProductFromCart(action) {
 }
 
 function* setFilterCountry(action) {
-  console.log({ action })
   yield put({ type: SET_COUNTRY_FILTER_SUCCESS, payload: action.payload })
+}
+
+function* setPageLoading(action) {
+  yield put({ type: PAGE_LOADED_SUCCESS, payload: action.payload })
 }
 
 function* shopSagas() {
@@ -34,6 +39,7 @@ function* shopSagas() {
   yield takeLatest(REDUCE_PRODUCT_IN_CART, reduceProductInCart)
   yield takeLatest(DELETE_PRODUCT_IN_CART, deleteProductFromCart)
   yield takeLatest(SET_COUNTRY_FILTER, setFilterCountry)
+  yield takeLatest(PAGE_LOADING, setPageLoading)
 }
 
 export default shopSagas

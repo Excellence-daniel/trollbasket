@@ -13,6 +13,7 @@ import {
   reduceProductInCart,
   deleteProductInCart,
   setCountryFilter,
+  stopPageLoading,
 } from '../../pages/Shop/redux/action'
 import { Link } from 'react-router-dom'
 import { products } from '../../utils/constants/products'
@@ -20,12 +21,20 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import Popover from '@material-ui/core/Popover'
 
 const AuthHeader = (props) => {
-  console.log('here', props)
   const [open, setopen] = useState(false)
   const [cartitems, setcartitems] = useState([])
   const [searchtext, setsearchtext] = useState('')
   const [searchresult, setresult] = useState([])
   const [anchorEl, setAnchorEl] = React.useState(null)
+
+  useEffect(() => {
+    props.stopPageLoading(true)
+    const theRandomNumber = Math.floor(Math.random() * 3) + 1
+    window.setTimeout(() => {
+      props.stopPageLoading(false)
+    }, theRandomNumber * 1000)
+    // eslint-disable-next-line
+  }, [])
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget)
@@ -46,7 +55,7 @@ const AuthHeader = (props) => {
 
   const search = (value) => {
     const res = []
-    products.map((product) => {
+    products.forEach((product) => {
       const name = product.name.toLowerCase()
       const x = name.search(value.toLowerCase())
       if (x > -1) res.push(product)
@@ -56,6 +65,10 @@ const AuthHeader = (props) => {
 
   const setcountry = (country) => {
     props.setCountryFilter(country)
+    props.stopPageLoading(true)
+    window.setTimeout(() => {
+      props.stopPageLoading(false)
+    }, 1500)
   }
 
   const openPop = Boolean(anchorEl)
@@ -97,7 +110,11 @@ const AuthHeader = (props) => {
                             window.location.href = `/shop/product/${result.id}`
                           }}
                         >
-                          <img src={PackageImg} className="img-fluid" />
+                          <img
+                            src={PackageImg}
+                            className="img-fluid"
+                            alt="package-img"
+                          />
                           <span>{result.name}</span>
                         </p>
                       ))
@@ -137,6 +154,7 @@ const AuthHeader = (props) => {
                       }}
                     >
                       <div className="countries-list">
+                        <p onClick={() => setcountry('All')}>All</p>
                         <p onClick={() => setcountry('Nigeria')}>Nigeria</p>
                         <p onClick={() => setcountry('Ghana')}>Ghana</p>
                         <p onClick={() => setcountry('South Africa')}>
@@ -161,7 +179,6 @@ const AuthHeader = (props) => {
           </div>
         </Toolbar>
       </AppBar>
-      {/*  */}
       <SwipeableDrawer
         anchor={'right'}
         open={open}
@@ -184,6 +201,7 @@ const mapToDispatchProps = {
   reduceProductInCart,
   deleteProductInCart,
   setCountryFilter,
+  stopPageLoading,
 }
 
 export default connect(selectors, mapToDispatchProps)(AuthHeader)

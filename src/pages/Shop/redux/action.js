@@ -13,6 +13,9 @@ export const DELETE_PRODUCT_IN_CART_SUCCESS = 'DELETE_PRODUCT_IN_CART_SUCCESS'
 export const SET_COUNTRY_FILTER = 'SET_COUNTRY_FILTER'
 export const SET_COUNTRY_FILTER_SUCCESS = 'SET_COUNTRY_FILTER_SUCCESS'
 
+export const PAGE_LOADING = 'PAGE_LOADING'
+export const PAGE_LOADED_SUCCESS = 'PAGE_LOADED_SUCCESS'
+
 export const saveProductInCart = (payload) => ({
   type: SAVE_PRODUCT_IN_CART,
   payload,
@@ -30,5 +33,10 @@ export const deleteProductInCart = (payload) => ({
 
 export const setCountryFilter = (payload) => ({
   type: SET_COUNTRY_FILTER,
+  payload,
+})
+
+export const stopPageLoading = (payload) => ({
+  type: PAGE_LOADING,
   payload,
 })

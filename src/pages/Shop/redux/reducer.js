@@ -5,8 +5,8 @@ import {
   REDUCE_PRODUCT_IN_CART_SUCCESS,
   DELETE_PRODUCT_IN_CART_SUCCESS,
   SET_COUNTRY_FILTER_SUCCESS,
+  PAGE_LOADED_SUCCESS,
 } from './action'
-import { products } from '../../../utils/constants/products'
 import { categories } from '../../../utils/constants/categories'
 
 const initialState = {
@@ -15,6 +15,7 @@ const initialState = {
   filteredCategories: [],
   filtercountry: 'All',
   errorMessage: '',
+  pageLoading: true,
 }
 
 const addToLS = (cart) => {
@@ -70,13 +71,21 @@ export const shopReducer = (state = initialState, action) => {
     case SET_COUNTRY_FILTER_SUCCESS: {
       const country = action.payload
       const categorys = []
-      categories.map((category) => {
-        if (category.availableIn.includes(country)) {
-          categorys.push(category)
-        }
-      })
-      return { ...state, filteredCategories: categorys, filtercountry: country }
+      if (country !== 'All') {
+        categories.forEach((category) => {
+          if (category.availableIn.includes(country)) {
+            categorys.push(category)
+          }
+        })
+      }
+      return {
+        ...state,
+        filteredCategories: categorys,
+        filtercountry: country,
+      }
     }
+    case PAGE_LOADED_SUCCESS:
+      return { ...state, pageLoading: action.payload }
     default:
       return { ...state }
   }

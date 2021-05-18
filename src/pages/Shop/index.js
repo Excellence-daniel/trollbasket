@@ -10,28 +10,29 @@ import { products } from '../../utils/constants/products'
 import { categories } from '../../utils/constants/categories'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow'
 import { ProductsView } from '../../components/ProductsView'
+import { BackdropComponent } from '../../components/Backdrop'
+import EmptyState from '../../components/EmptyState'
 
 const Shop = (props) => {
   const [sortedData, setgroupings] = useState([])
 
   useEffect(() => {
-    // !sortedData.length && fetchData()
     fetchData()
+    // eslint-disable-next-line
   }, [props.filtercountry])
 
   const fetchData = () => {
     const allcategories =
       props.filtercountry !== 'All' ? props.filteredCategories : categories
-    console.log({ allcategories })
     const groupings = []
-    allcategories.map((category) => {
+    allcategories.forEach((category) => {
       let groupedCategory = {
         categoryid: category.id,
         categoryname: category.name,
         products: [],
       }
 
-      products.map((product) => {
+      products.forEach((product) => {
         if (product.categoryIds.includes(category.id)) {
           groupedCategory.products.push(product)
         }
@@ -51,33 +52,41 @@ const Shop = (props) => {
   return (
     <div className="shop-001">
       <AuthHeader onShop={true} />
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-12 category-group">
-            {sortedData.map((group, id) => (
-              <div className="category" key={id}>
-                <h3 className="category-name">
-                  <p>
-                    {group.categoryname} <ArrowRightAltIcon />{' '}
-                  </p>
-                  <span className="see-more">
-                    <Link to={`/shop/category/${group.categoryid}`}>
-                      See More <DoubleArrowIcon />
-                    </Link>
-                  </span>
-                </h3>
-                <div className="category-list">
-                  <ProductsView
-                    products={group.products.slice(0, 5)}
-                    addToCart={addToCart}
-                    {...props}
-                  />
-                </div>
-              </div>
-            ))}
+      {props.pageLoading ? (
+        <BackdropComponent open={true} />
+      ) : (
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12 category-group">
+              {!sortedData.length ? (
+                <EmptyState text="No Products for selected country" />
+              ) : (
+                sortedData.map((group, id) => (
+                  <div className="category" key={id}>
+                    <h3 className="category-name">
+                      <p>
+                        {group.categoryname} <ArrowRightAltIcon />{' '}
+                      </p>
+                      <span className="see-more">
+                        <Link to={`/shop/category/${group.categoryid}`}>
+                          See More <DoubleArrowIcon />
+                        </Link>
+                      </span>
+                    </h3>
+                    <div className="category-list">
+                      <ProductsView
+                        products={group.products.slice(0, 5)}
+                        addToCart={addToCart}
+                        {...props}
+                      />
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

@@ -21,12 +21,18 @@ const errorMessage = createSelector(
   (shopObject) => shopObject.errorMessage,
 )
 
+const pageLoading = createSelector(
+  shopObject,
+  (shopObject) => shopObject.pageLoading,
+)
+
 const selectors = createStructuredSelector({
   loading,
   cart,
   errorMessage,
   filtercountry,
   filteredCategories,
+  pageLoading,
 })
 
 export default selectors

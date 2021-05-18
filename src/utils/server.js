@@ -1,5 +1,6 @@
 import axios from 'axios'
-const { REACT_APP_SERVER_URL } = process.env
+// const { REACT_APP_SERVER_URL } = process.env
+const REACT_APP_SERVER_URL = 'https://trollbasket-server.herokuapp.com'
 
 export default {
   async getData(url, query = 0) {

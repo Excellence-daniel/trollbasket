@@ -9,6 +9,7 @@ import selectors from '../../pages/Shop/redux/selector'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import { CartView } from '../CartView'
 import PackageImg from '../../assets/imgs/package.png'
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import {
   reduceProductInCart,
   deleteProductInCart,
@@ -73,6 +74,11 @@ const AuthHeader = (props) => {
 
   const openPop = Boolean(anchorEl)
   const id = openPop ? 'simple-popper' : undefined
+
+  const logoOut = () => {
+    localStorage.clear()
+    window.location.href = '/'
+  }
 
   return (
     <div className="authhead--00">
@@ -179,6 +185,9 @@ const AuthHeader = (props) => {
           </div>
         </Toolbar>
       </AppBar>
+      <div className="logout-board" onClick={() => logoOut()}>
+        <PowerSettingsNewIcon />
+      </div>
       <SwipeableDrawer
         anchor={'right'}
         open={open}

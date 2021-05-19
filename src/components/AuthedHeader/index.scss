@@ -108,6 +108,27 @@
   }
 }
 
+.logout-board {
+  position: fixed;
+  bottom: 15px;
+  border-radius: 50%;
+  background: #0945561f;
+  padding: 17px 18px;
+  right: 8px;
+  color: white;
+  /* box-shadow: -5px 0px 5px 0px #323234; */
+  font-weight: 800;
+
+  svg {
+    color: #094556;
+    font-size: 26px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .cart-drawer {
   .MuiDrawer-paperAnchorRight {
     width: 38rem;

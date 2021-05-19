@@ -5,8 +5,6 @@ import RemoveIcon from '@material-ui/icons/Remove'
 import DeleteIcon from '@material-ui/icons/Delete'
 
 export const CartView = (props) => {
-  console.log('cart -----', props)
-
   const totalAmount = (items) => {
     let total = 0
     items.map((item) => (total += item.price * item.quantity))
@@ -35,7 +33,7 @@ export const CartView = (props) => {
               </span>
             </p>
             <p className="price">
-              ${numeral(product.price * product.quantity).format('0,0')}
+              ${numeral(product?.price * product?.quantity || 0).format('0,0')}
             </p>
           </div>
         ))}
@@ -44,7 +42,7 @@ export const CartView = (props) => {
       <div className="bottom-tab">
         <div className="total-amount">
           <h6>Total</h6>
-          <p>${numeral(totalAmount(props.cart)).format('0,0')}</p>
+          <p>${numeral(totalAmount(props?.cart || 0)).format('0,0')}</p>
         </div>
         <div className="checkout-button">
           <button disabled={!totalAmount(props.cart)}> Checkout </button>

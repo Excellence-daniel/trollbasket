@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects'
+import { put, takeLatest, select } from 'redux-saga/effects'
 import {
   SAVE_PRODUCT_IN_CART_SUCCESS,
   SAVE_PRODUCT_IN_CART,
@@ -11,18 +11,21 @@ import {
   PAGE_LOADED_SUCCESS,
   PAGE_LOADING,
 } from './action'
+import { cart } from './selector'
 
 function* saveProductInCart(action) {
   yield put({ type: SAVE_PRODUCT_IN_CART_SUCCESS, payload: action.payload })
 }
 
 function* reduceProductInCart(action) {
-  console.log({ action })
-  yield put({ type: REDUCE_PRODUCT_IN_CART_SUCCESS, payload: action.payload })
+  let items = yield select(cart)
+  const findIndex = items.findIndex((x) => x.id === action.payload.id)
+  let selected = items[findIndex]
+  selected = { ...selected, quantity: selected.quantity - 1 }
+  yield put({ type: REDUCE_PRODUCT_IN_CART_SUCCESS, payload: selected })
 }
 
 function* deleteProductFromCart(action) {
-  console.log({ action })
   yield put({ type: DELETE_PRODUCT_IN_CART_SUCCESS, payload: action.payload })
 }
 

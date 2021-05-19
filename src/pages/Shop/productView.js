@@ -45,7 +45,6 @@ const ProductDetailView = (props) => {
   const getSimilarProducts = (id) => {
     const product = products.find((x) => x.id === id)
     const randomcategoryId = product.categoryIds[product.categoryIds.length - 1]
-    console.log({ randomcategoryId })
     const similarProducts = []
     products.forEach((product) => {
       if (

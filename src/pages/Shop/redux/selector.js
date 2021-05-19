@@ -4,7 +4,7 @@ const shopObject = (state = {}) => state.shop
 
 const loading = createSelector(shopObject, (shopObject) => shopObject.loading)
 
-const cart = createSelector(shopObject, (shopObject) => shopObject.cart)
+export const cart = createSelector(shopObject, (shopObject) => shopObject.cart)
 
 const filteredCategories = createSelector(
   shopObject,
